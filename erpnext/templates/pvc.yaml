@@ -10,7 +10,9 @@ metadata:
   name: {{ template "erpnext.fullname" . }}
 spec:
   accessModes:
-    - ReadWriteMany
+  {{- range .Values.persistence.worker.accessModes }}
+    - {{ . | quote }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.persistence.worker.size | quote }}
